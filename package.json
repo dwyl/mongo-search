@@ -1,0 +1,33 @@
+{
+  "name": "mongo-search",
+  "version": "0.0.1",
+  "description": "Full-text Search using MongoDB Native Nodejs",
+  "main": "server.js",
+  "dependencies": {
+    "mongodb": "~1.3.23",
+    "twitter": "~0.2.9"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "node server",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ideaq/mongo-search.git"
+  },
+  "keywords": [
+    "Mongodb",
+    "Native",
+    "Full-text",
+    "Search",
+    "Made",
+    "Easy"
+  ],
+  "author": "@nelsonic & friends",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ideaq/mongo-search/issues"
+  },
+  "homepage": "https://github.com/ideaq/mongo-search"
+}
