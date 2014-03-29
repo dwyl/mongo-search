@@ -4,7 +4,7 @@ function createIndex(collection, fields, callback){
 
 var KEYWORDS = "learned, learnt, homework, science, math, maths, physics, chemistry"; // add keywords separated by spaces.
 // KEYWORDS = "katie, justin, kim, beyonce, 1DWorld, OMG, FML, news, breaking";
-KEYWORDS = "idea";
+// KEYWORDS = "idea";
 
 var twitter = require('twitter'),
   twit = new twitter({
