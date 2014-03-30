@@ -73,28 +73,47 @@ Output:
 - http://mongodb.github.io/node-mongodb-native/markdown-docs/indexes.html
 
 
-#### Search
-
-Searching our database.
-
-![MongoDB Native NO runCommand](http://i.imgur.com/5LKPFNE.png)
+#### Searching the Data
 
 Node.js MongoDB Native *does not have* **runCommand** which is used in most 
 full-text search examples. So we cannot just do:
 
-```
+```javascript
 db.posts.runCommand( "text", { search: "justin" } )
 ```
 
+![MongoDB Native NO runCommand](http://i.imgur.com/5LKPFNE.png)
+
 But a bit of investigation yields: 
 
-```
+```javascript
 // unintuitively the text field is actually the collection!
 db.command({text:"posts" , search: "maths science" }, function(err, cb){ 
 	console.log(cb.results);
 });
 ```
 
+#### Storing Search Results
+
+The result of the above **db.command** search query has the format:
+
+```
+  { score: 2.142857142857143,
+    obj: 
+     { text: 'Math, science, history, unraveling the mystery it all started with a #BigBang💥',
+       time: Sun Mar 30 2014 07:03:08 GMT+0100 (BST),
+       avatar: 'http://pbs.twimg.com/profile_images/442935363095379968/CuEcmYsH_normal.jpeg',
+       _id: 'Kxssadbi2e5X7ga5L' } },
+ { score: 2.142857142857143,
+    obj: 
+     { text: 'I was just about to set my maths and science books on fire…#ihateschool',
+       time: Sun Mar 30 2014 06:22:31 GMT+0100 (BST),
+       avatar: 'http://pbs.twimg.com/profile_images/449715822454243329/cNN69E3A_normal.jpeg',
+       _id: 'ghoi72BoEfswZgfws' } }
+```
+
+This returns the **score** (a *float*) and the entire record (all fields).
+We could return this directly to the user
 
 
 ## Further Reading
