@@ -49,6 +49,52 @@ Install it using NPM.
 npm install mongodb
 ```
 
+#### Index Methods
+
+```
+MongoClient.connect('mongodb://127.0.0.1:27017/meteor', function(err, db) {
+  if(err) throw err;
+  var posts = db.collection('posts');
+  posts.indexInformation(function(err, info) { // all indexes on posts collection
+    console.dir(info);
+  });
+}) // end MongoClient
+
+```
+Output:
+```
+{ 
+  _id_: [ [ '_id', 1 ] ],
+  post_search_index: [ [ '_fts', 'text' ], [ '_ftsx', 1 ] ] 
+}
+
+```
+
+- http://mongodb.github.io/node-mongodb-native/markdown-docs/indexes.html
+
+
+#### Search
+
+Searching our database.
+
+![MongoDB Native NO runCommand](http://i.imgur.com/5LKPFNE.png)
+
+Node.js MongoDB Native *does not have* **runCommand** which is used in most 
+full-text search examples. So we cannot just do:
+
+```
+db.posts.runCommand( "text", { search: "justin" } )
+```
+
+But a bit of investigation yields: 
+
+```
+// unintuitively the text field is actually the collection!
+db.command({text:"posts" , search: "maths science" }, function(err, cb){ 
+	console.log(cb.results);
+});
+```
+
 
 
 ## Further Reading
@@ -56,6 +102,9 @@ npm install mongodb
 - Searching MongoDB: http://docs.mongodb.org/manual/tutorial/search-for-text/
 - http://blog.mongohq.com/mongodb-and-full-text-search-my-first-week-with-mongodb-2-4-development-release/
 - https://blog.serverdensity.com/full-text-search-in-mongodb
+- 12 Months with Mongo: http://blog.wordnik.com/12-months-with-mongodb
+- http://stackoverflow.com/questions/16070233/runcommand-equivalent-for-nodejs-native-mongodb
+- If Mongoose was an option: http://stackoverflow.com/questions/19849650/full-text-search-in-mongodb-node-js-mongoose-text-search
 
 ### Prefer "Real" Search?
 
