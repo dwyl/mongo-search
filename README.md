@@ -17,7 +17,7 @@ a collection of "posts" (tweets) and find relevant results.
 
 ## WHAT
 
-***Full-text search*** *without resorting to *Solr or ElasticSearch*.
+***Full-text search*** *without having to manage *Solr or ElasticSearch*.
 (keeping it simple with just *one* data store)
 
 
@@ -49,7 +49,7 @@ Install it using NPM.
 npm install mongodb
 ```
 
-#### Index Methods
+### Create the Index
 
 ```
 MongoClient.connect('mongodb://127.0.0.1:27017/meteor', function(err, db) {
@@ -73,7 +73,11 @@ Output:
 - http://mongodb.github.io/node-mongodb-native/markdown-docs/indexes.html
 
 
-#### Searching the Data
+### Searching the Data
+
+```
+db.posts.find({}).sort({time:-1}).limit(100);
+```
 
 Node.js MongoDB Native *does not have* **runCommand** which is used in most 
 full-text search examples. So we cannot just do:
@@ -93,7 +97,7 @@ db.command({text:"posts" , search: "maths science" }, function(err, cb){
 });
 ```
 
-#### Storing Search Results
+### Storing Search Results
 
 The result of the above **db.command** search query has the format:
 
@@ -113,7 +117,34 @@ The result of the above **db.command** search query has the format:
 ```
 
 This returns the **score** (a *float*) and the entire record (all fields).
-We could return this directly to the user
+We could return these results directly to the user and we are *done*.
+But going back to our original reason for diving into "*naitve*" node, 
+we want to be able to "pipe" these results back into our Meteor app.
+
+#### New Collection: Search Results
+
+
+
+```javascript
+db.search_results.insert(
+	{
+		keywords:"science",
+		posts : [ 
+				{
+					score: 2.142857142857143,
+					_id: 'Kxssadbi2e5X7ga5L'
+				},
+				{
+					score: 2.142857142857143,
+					_id: 'ghoi72BoEfswZgfws' 
+				}
+
+			]
+		last_updated: new Date()
+	}
+);
+```
+
 
 
 ## Further Reading

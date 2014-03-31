@@ -2,7 +2,8 @@
 var KEYWORDS = "learned, learnt, homework, science, math, maths, physics, chemistry"; // add keywords separated by spaces.
 // KEYWORDS = "katie, justin, kim, beyonce, 1DWorld, OMG, FML, news, breaking"; // for *LOTS* of tweets.
 // KEYWORDS = "idea";
-var SEARCH_INDEX = "post_search_index"
+var SEARCH_INDEX = "post_search_index";
+var SEARCH_KEYWORDS = "abc"
 
 var twitter = require('twitter'),
   twit = new twitter({
@@ -17,6 +18,7 @@ var MongoClient = require('mongodb').MongoClient;
 MongoClient.connect('mongodb://127.0.0.1:27017/meteor', function(err, db) {
   if(err) throw err;
   var posts = db.collection('posts');
+  var sr    = db.collection('search_results');
 
   // fetchTweets(posts);
 
@@ -25,10 +27,54 @@ MongoClient.connect('mongodb://127.0.0.1:27017/meteor', function(err, db) {
     createIndex(posts);
   },10000)
 
-  db.command({text:"posts" , search: "maths science" }, function(err, cb){ 
-    console.log(cb.results);
+  db.command({text:"posts" , search: SEARCH_KEYWORDS }, function(err, res){ 
+    if(err) console.log(err);
 
-  });
+    var record = {};
+    record.keywords = SEARCH_KEYWORDS;
+    record.last_updated = new Date();
+    record.posts = [];
+
+    if (res.results && res.results.length > 0){
+      console.log("EXAMPLE:",res.results[0]);
+
+      for(var i in res.results){
+        // console.log(i, res.results[i].score, res.results[i].obj._id);
+        record.posts.push({
+          "_id":res.results[i].obj._id.toString(), 
+          "score":res.results[i].score
+        });
+      }
+
+      // check if an SR record already exists for this keyword
+      sr.findOne({"keywords":SEARCH_KEYWORDS}, function(err, items) {
+        if(err) console.log(err);
+        console.log(items);
+        if(items && items._id){
+          record._id = items._id;
+          // upsert the results record
+          sr.update(record, { upsert: true }, function(err,info){
+            if(err) console.log(err);
+            // console.log("INFO",info);
+          });
+        } else {
+          // insert new search results record
+          sr.insert(record, function(err,info){
+            if(err) console.log(err);
+            console.log("INFO",info);
+          });
+        }
+
+      }) // end findOne (search results lookup for keywords)
+    } else { // no search results
+      console.log('no results');
+      sr.insert(record, function(err,info){
+        if(err) console.log(err);
+        console.log("INFO",info);
+      });
+    }
+
+  }); // end command (search)
 
 }) // end MongoClient
 
