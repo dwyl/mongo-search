@@ -49,6 +49,10 @@ Install it using NPM.
 npm install mongodb
 ```
 
+#### Startup The Meteor Mongo DB
+
+mongod --bind_ip 127.0.0.1 --dbpath ~/code/meteor-search/.meteor/local/db --setParameter textSearchEnabled=true
+
 ### Create the Index
 
 ```
@@ -67,8 +71,9 @@ Output:
   _id_: [ [ '_id', 1 ] ],
   post_search_index: [ [ '_fts', 'text' ], [ '_ftsx', 1 ] ] 
 }
-
 ```
+*ignore* the _id_ index that's a mongodb default.
+the one which interests us is the post_search_index we created earlier.
 
 - http://mongodb.github.io/node-mongodb-native/markdown-docs/indexes.html
 
@@ -80,7 +85,7 @@ db.posts.find({}).sort({time:-1}).limit(100);
 ```
 
 Node.js MongoDB Native *does not have* **runCommand** which is used in most 
-full-text search examples. So we cannot just do:
+full-text search examples. <br />So we *cannot* just do:
 
 ```javascript
 db.posts.runCommand( "text", { search: "justin" } )
@@ -124,7 +129,6 @@ we want to be able to "pipe" these results back into our Meteor app.
 #### New Collection: Search Results
 
 
-
 ```javascript
 db.search_results.insert(
 	{
@@ -138,12 +142,37 @@ db.search_results.insert(
 					score: 2.142857142857143,
 					_id: 'ghoi72BoEfswZgfws' 
 				}
-
 			]
 		last_updated: new Date()
 	}
 );
 ```
+
+### Displaying Search Results
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -155,6 +184,8 @@ db.search_results.insert(
 - 12 Months with Mongo: http://blog.wordnik.com/12-months-with-mongodb
 - http://stackoverflow.com/questions/16070233/runcommand-equivalent-for-nodejs-native-mongodb
 - If Mongoose was an option: http://stackoverflow.com/questions/19849650/full-text-search-in-mongodb-node-js-mongoose-text-search
+
+>> REPLY TO: http://stackoverflow.com/questions/17159626/implementing-mongodb-2-4s-full-text-search-in-a-meteor-app
 
 ### Prefer "Real" Search?
 

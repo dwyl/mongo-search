@@ -3,7 +3,7 @@ var KEYWORDS = "learned, learnt, homework, science, math, maths, physics, chemis
 // KEYWORDS = "katie, justin, kim, beyonce, 1DWorld, OMG, FML, news, breaking"; // for *LOTS* of tweets.
 // KEYWORDS = "idea";
 var SEARCH_INDEX = "post_search_index";
-var SEARCH_KEYWORDS = "abc"
+var SEARCH_KEYWORDS = "paypal"
 
 var twitter = require('twitter'),
   twit = new twitter({
