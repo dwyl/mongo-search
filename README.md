@@ -182,7 +182,7 @@ db.search_results.insert(
 - http://blog.mongohq.com/mongodb-and-full-text-search-my-first-week-with-mongodb-2-4-development-release/
 - https://blog.serverdensity.com/full-text-search-in-mongodb
 - 12 Months with Mongo: http://blog.wordnik.com/12-months-with-mongodb
-- http://stackoverflow.com/questions/16070233/runcommand-equivalent-for-nodejs-native-mongodb
+- runCommand equivalent: http://stackoverflow.com/questions/16070233/runcommand-equivalent-for-nodejs-native-mongodb
 - If Mongoose was an option: http://stackoverflow.com/questions/19849650/full-text-search-in-mongodb-node-js-mongoose-text-search
 
 >> REPLY TO: http://stackoverflow.com/questions/17159626/implementing-mongodb-2-4s-full-text-search-in-a-meteor-app
