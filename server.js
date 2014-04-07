@@ -4,10 +4,10 @@ var KEYWORDS = "learned, learnt, homework, science, math, maths, physics, chemis
 // KEYWORDS = "idea";
 var twitter = require('twitter'),
   twit = new twitter({
-    consumer_key: 'wyir0dDuntZkbXF0jQps8w',
-    consumer_secret: 'hrWA0pEoGGD9DiJf1tanhkgYOCNwFL7yN6L8QCc3Nc',
-    access_token_key: '2389016353-maPa5ax7R3VcXnFBROMb8HPEwJsO64So62dAHnK',
-    access_token_secret: 'iKuvsT3tZd0Mk8ACUCfi6KzeN3Fvbr5EnyzDyHIlUgrrA'
+    consumer_key: 'U8N2QzFu6Hv4BB3BjObIy9HDF',
+    consumer_secret: 'rJWtj5NneVWmfT8STB7YN6IBkLreke9JoJhP3nIe0ffnBq91Xv',
+    access_token_key: '2389016353-4tCDaVgRFkkNsWOj1sb6fZQ8s0bINqD5jJGmqRC',
+    access_token_secret: 'OEFnemh9FlSkOX5YuNP46XsDh3EutbHiiKq6q8wV2Pwko'
 });
 
 var SEARCH_INDEX = "post_search_index";
@@ -21,14 +21,14 @@ MongoClient.connect('mongodb://127.0.0.1:27017/meteor', function(err, db) {
   _posts = db.collection('posts');
   _sr    = db.collection('search_results');
   _db    = db; // export the database handle
-  // fetchTweets(_posts);
+  fetchTweets(_posts);
 
   // wait 10 seconds for some data then create full-text index
-  setTimeout(function(){
-    createIndex(_posts);
-  },10000)
+  // setTimeout(function(){
+  //   createIndex(_posts);
+  // },10000)
 
-  search('science');
+  // search('science');
 }) // end MongoClient
 
 // 
@@ -103,6 +103,7 @@ function createIndex(collection) {
 }
 
 function fetchTweets(collection){
+  // console.log(twit);
   twit.stream("statuses/filter", { track: KEYWORDS, 'lang':'en' }, function(stream) {
     stream.on('data', function(data) {
       var tweet = extractTweet(data);
