@@ -17,11 +17,15 @@ a collection of "posts" (tweets) and find relevant results.
 
 ## WHAT
 
-***Full-text search*** *without having to manage *Solr or ElasticSearch*.
+***Full-text search*** *without* having to manage *Solr or ElasticSearch*.
 (keeping it simple with just *one* data store)
 
 
 ## HOW
+
+### Ensure You have MongoDB Installed
+
+see: http://docs.mongodb.org/manual/installation/
 
 ### Going Native
 
@@ -43,7 +47,7 @@ For these simple tasks the ***Node MongoDB Native*** client is *perfect*.
 
 - https://github.com/mongodb/node-mongodb-native
 
-Install it using NPM.
+Install the node-mongodb-native node module using NPM:
 
 ```
 npm install mongodb
@@ -51,7 +55,10 @@ npm install mongodb
 
 #### Startup The Meteor Mongo DB
 
+Use this command to start Mongo with **textSearchEnabled**:
+
 mongod --bind_ip 127.0.0.1 --dbpath ~/code/meteor-search/.meteor/local/db --setParameter textSearchEnabled=true
+
 
 ### Create the Index
 
