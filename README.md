@@ -25,11 +25,11 @@ a collection of "posts" (tweets) and find relevant results.
 
 ### Ensure You have MongoDB Installed
 
-see: http://docs.mongodb.org/manual/installation/
+see: https://www.mongodb.com/docs/manual/installation/
 
 ### Going Native
 
-In the past I've used [Mongoose](http://mongoosejs.com/) to interact with 
+In the past I've used [Mongoose](https://mongoosejs.com/) to interact with 
 MongoDB. Mongoose offers many great abstractions when building applications
 specifically around pre-defining models and providing constructors to 
 validate fields on insert/update. We don't need that here.
@@ -82,7 +82,7 @@ Output:
 *ignore* the _id_ index that's a mongodb default.
 the one which interests us is the post_search_index we created earlier.
 
-- http://mongodb.github.io/node-mongodb-native/markdown-docs/indexes.html
+- https://mongodb.github.io/node-mongodb-native/markdown-docs/indexes.html
 
 
 ### Searching the Data
@@ -98,7 +98,7 @@ full-text search examples. <br />So we *cannot* just do:
 db.posts.runCommand( "text", { search: "justin" } )
 ```
 
-![MongoDB Native NO runCommand](http://i.imgur.com/5LKPFNE.png)
+![MongoDB Native NO runCommand](https://i.imgur.com/5LKPFNE.png)
 
 But a bit of investigation yields: 
 
@@ -118,13 +118,13 @@ The result of the above **db.command** search query has the format:
     obj: 
      { text: 'Math, science, history, unraveling the mystery it all started with a #BigBang💥',
        time: Sun Mar 30 2014 07:03:08 GMT+0100 (BST),
-       avatar: 'http://pbs.twimg.com/profile_images/442935363095379968/CuEcmYsH_normal.jpeg',
+       avatar: 'https://pbs.twimg.com/profile_images/442935363095379968/CuEcmYsH_normal.jpeg',
        _id: 'Kxssadbi2e5X7ga5L' } },
  { score: 2.142857142857143,
     obj: 
      { text: 'I was just about to set my maths and science books on fire…#ihateschool',
        time: Sun Mar 30 2014 06:22:31 GMT+0100 (BST),
-       avatar: 'http://pbs.twimg.com/profile_images/449715822454243329/cNN69E3A_normal.jpeg',
+       avatar: 'https://pbs.twimg.com/profile_images/449715822454243329/cNN69E3A_normal.jpeg',
        _id: 'ghoi72BoEfswZgfws' } }
 ```
 
@@ -185,17 +185,17 @@ db.search_results.insert(
 
 ## Further Reading
 
-- Searching MongoDB: http://docs.mongodb.org/manual/tutorial/search-for-text/
-- http://blog.mongohq.com/mongodb-and-full-text-search-my-first-week-with-mongodb-2-4-development-release/
+- Searching MongoDB: https://www.mongodb.com/docs/manual/reference/operator/query/text/
+- https://blog.mongohq.com/mongodb-and-full-text-search-my-first-week-with-mongodb-2-4-development-release/
 - https://blog.serverdensity.com/full-text-search-in-mongodb
-- 12 Months with Mongo: http://blog.wordnik.com/12-months-with-mongodb
-- runCommand equivalent: http://stackoverflow.com/questions/16070233/runcommand-equivalent-for-nodejs-native-mongodb
-- If Mongoose was an option: http://stackoverflow.com/questions/19849650/full-text-search-in-mongodb-node-js-mongoose-text-search
+- 12 Months with Mongo: https://blog.wordnik.com/12-months-with-mongodb
+- runCommand equivalent: https://stackoverflow.com/questions/16070233/runcommand-equivalent-for-nodejs-native-mongodb
+- If Mongoose was an option: https://stackoverflow.com/questions/19849650/full-text-search-in-mongodb-node-js-mongoose-text-search
 
->> REPLY TO: http://stackoverflow.com/questions/17159626/implementing-mongodb-2-4s-full-text-search-in-a-meteor-app
+>> REPLY TO: https://stackoverflow.com/questions/17159626/implementing-mongodb-2-4s-full-text-search-in-a-meteor-app
 
 ### Prefer "Real" Search?
 
-- Feature compairson: http://solr-vs-elasticsearch.com/
-- Discussion: http://stackoverflow.com/questions/10213009/solr-vs-elasticsearch
-- Bonsai (hosted ElasticSearch): http://www.bonsai.io/
+- Feature compairson: https://solr-vs-elasticsearch.com/
+- Discussion: https://stackoverflow.com/questions/10213009/solr-vs-elasticsearch
+- Bonsai (hosted ElasticSearch): https://www.bonsai.io/
